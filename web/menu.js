@@ -123,7 +123,12 @@ app.registerExtension({
     app.ui.settings.addSetting({
       id: `${id_music_prefix}.volume`,
       name: 'Volume',
-      type: 'integer',
+      type: 'slider',
+      attrs: {
+        min: 0,
+        max: 100,
+        step: 1,
+      },
       tooltip: 'set ding dong volume',
       defaultValue: 100,
       onChange(v) {
