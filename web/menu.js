@@ -2,7 +2,7 @@ import { app } from '../../../scripts/app.js';
 
 import { api } from '../../scripts/api.js';
 import { $el } from '../../scripts/ui.js';
-import { fetchAndPlayAudio, get_video_files, set_play_type } from './utils.js';
+import { fetchAndPlayAudioSingle, get_video_files, set_play_type, fetchAndPlayAudio } from './utils.js';
 
 const id_prefix = '⏰Ding_Dong';
 const id_music_prefix = `${id_prefix}.music`;
@@ -58,7 +58,7 @@ const fileInput = $el('input', {
   onchange: async () => {
     const file = fileInput.files[0];
     const menu_name = `${id_music_prefix}.name`;
-    const validExtensions = ['.mp4', '.avi', '.mov', '.mkv', '.webm', '.mp3'];
+    const validExtensions = ['.mp4', '.avi', '.mov', '.mkv', '.webm', '.mp3', '.wav'];
     if (validExtensions.some((ext) => file.name.toLowerCase().endsWith(ext))) {
       const reader = new FileReader();
       reader.onload = async () => {};
@@ -94,7 +94,7 @@ app.registerExtension({
           id: `${id_music_prefix}.name`,
           name: 'play music name',
           tooltip: 'select music name',
-          defaultValue: res[0],
+          defaultValue: res[0].value,
           type: () => select_menu_name_options,
           onChange(value) {
             if (value === selectedAudio) {
@@ -109,8 +109,11 @@ app.registerExtension({
     });
     api.addEventListener('pc.play_ding_dong_audio', () => {
       if (selectedAudio && open) {
-        fetchAndPlayAudio(selectedAudio, volume / 100);
+        fetchAndPlayAudioSingle(selectedAudio, volume / 100);
       }
+    });
+    api.addEventListener('pc.play_ding_dong_mui', ({ detail }) => {
+      fetchAndPlayAudio(detail.music, detail.volume / 100);
     });
     app.ui.settings.addSetting({
       id: `${id_music_prefix}.volume`,
@@ -158,9 +161,6 @@ app.registerExtension({
             fileInput.click();
           },
         });
-      },
-      onChange(v) {
-        console.log('🍞 ~ onChange ~ v:', v);
       },
     });
     console.log(app.ui.settings);

@@ -20,7 +20,7 @@ const AudioContext = window.AudioContext || window.webkitAudioContext;
 const audioContext = new AudioContext();
 let currentSource = null;
 
-export async function fetchAndPlayAudio(filename, volume = 1) {
+export async function fetchAndPlayAudioSingle(filename, volume = 1) {
   // Stop any currently playing audio
   if (currentSource) {
     try {
@@ -39,6 +39,26 @@ export async function fetchAndPlayAudio(filename, volume = 1) {
   currentSource.connect(gainNode);
   gainNode.connect(audioContext.destination);
   currentSource.start();
+  currentSource.onended = () => {
+    currentSource = null;
+  };
+}
+
+export async function fetchAndPlayAudio(filename, volume = 1) {
+  const response = await request(`/pc_get_audio`, 'GET', { filename });
+  const audioBuffer = await audioContext.decodeAudioData(await response.arrayBuffer());
+
+  let source = audioContext.createBufferSource();
+  const gainNode = audioContext.createGain();
+  gainNode.gain.value = volume;
+
+  source.buffer = audioBuffer;
+  source.connect(gainNode);
+  gainNode.connect(audioContext.destination);
+  source.start();
+  source.onended = () => {
+    source = null;
+  };
 }
 
 export function get_video_files() {
