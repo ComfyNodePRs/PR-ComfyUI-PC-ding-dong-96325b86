@@ -90,7 +90,7 @@ app.registerExtension({
     get_video_files_list().then(async (res) => {
       try {
         set_select_menu_name_options(res);
-        const settings = app.ui.settings.addSetting({
+        app.ui.settings.addSetting({
           id: `${id_music_prefix}.name`,
           name: 'play music name',
           tooltip: 'select music name',
@@ -101,6 +101,18 @@ app.registerExtension({
               return;
             }
             set_select_menu_name_value(value);
+          },
+        });
+        app.ui.settings.addSetting({
+          id: `${id_music_prefix}.play`,
+          name: 'play music select',
+          type: () => {
+            return $el('button', {
+              textContent: 'play',
+              onclick: () => {
+                fetchAndPlayAudioSingle(selectedAudio, volume / 100);
+              },
+            });
           },
         });
       } catch (e) {
