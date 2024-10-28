@@ -1,8 +1,14 @@
-# ComfyUI Workflow Notification Node
+# ⏰ ComfyUI Workflow Notification Plugin 
+[中文版](./readme.zh.md)
 
-A ComfyUI custom node for sending notifications when workflows complete.
+
+Just like when your pizza is ready and the oven goes "Ding! 🍕", this plugin lets your ComfyUI notify you when your AI creations are done baking! 
+
+A ComfyUI custom node that sends you a friendly "ding-dong" notification when your workflows are fully cooked and ready to serve. No more staring at the screen waiting - let the AI kitchen tell you when dinner's ready! 👨‍🍳
 
 ## Features
+
+![setting](./image/setting1.jpg)
 
 - Sound notifications when workflows complete
 - Adjustable notification volume
@@ -10,15 +16,20 @@ A ComfyUI custom node for sending notifications when workflows complete.
 - Support for single workflow or batch workflow completion notifications
 - Support for custom notification sound upload
 
-## Usage
+## Nodes
 
-1. Add the node to the end of workflow
-2. Configure notification volume (0-100)
-3. Enable/disable sound notifications
-4. Select notification mode:
-   - Single run notification
-   - Batch run completion notification
-5. Upload custom notification sound file
+### DingDong Node
+
+![dingdong](./image/node1.jpg)
+
+A notification node that plays a custom sound file when workflow execution reaches it. You can select your own audio file and adjust the volume to get notified exactly how you want.
+
+### DingDongText Node
+
+![dingdong](./image/node2.jpg)
+
+A text-to-speech notification node that speaks custom text when workflow execution reaches it. The speech can be customized with adjustable pitch, speed and volume settings.
+
 
 ## Installation
 
