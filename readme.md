@@ -6,15 +6,28 @@ Just like when your pizza is ready and the oven goes "Ding! 🍕", this plugin l
 
 A ComfyUI custom node that sends you a friendly "ding-dong" notification when your workflows are fully cooked and ready to serve. No more staring at the screen waiting - let the AI kitchen tell you when dinner's ready! 👨‍🍳
 
-## Features
+## Features 🌟
+
+- Get notified when tasks complete
+- Save cloud and local computing resources
+- Perfect for long-running workflows and batch processing
+- Free up your time - no need to watch the screen
+- Improve workflow efficiency with timely alerts
+
+
+
 
 ![setting](./image/setting1.jpg)
 
 - Sound notifications when workflows complete
-- Adjustable notification volume
+- Adjustable notification volume 
 - Sound toggle control
 - Support for single workflow or batch workflow completion notifications
 - Support for custom notification sound upload
+- Save cloud and local computing resources
+- Perfect for long-running workflows and batch processing
+- Free up your time - no need to watch the screen
+- Improve workflow efficiency with timely alerts
 
 ## Nodes
 
