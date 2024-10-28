@@ -1,4 +1,5 @@
 import os
+import time
 import execution
 import asyncio
 from typing import List, Literal, NamedTuple, Optional
@@ -160,10 +161,81 @@ class DingDong:
         return (anything,)
 
 
+class TimeSleep:
+    def __init__(self):
+        pass
+
+    @classmethod
+    def INPUT_TYPES(s):
+        return {
+            "required": {
+                "seconds": ("FLOAT", {"default": 1, "min": 0, "max": 10, "step": 0.1}),
+            },
+            "optional": {
+                "anything": (any_type,),
+            },
+        }
+
+    OUTPUT_NODE = True
+    RETURN_TYPES = (any_type,)
+    RETURN_NAMES = ("output",)
+    FUNCTION = "sleep"
+    CATEGORY = "😱 PointAgiClub"
+
+    def sleep(self, seconds, **anything):
+        time.sleep(seconds)
+        return (anything,)
+
+
+class DingDongText:
+    def __init__(self):
+        pass
+
+    @classmethod
+    def INPUT_TYPES(s):
+        return {
+            "required": {
+                "text": ("STRING", {"default": "Hello, World!"}),
+                "pitch": (
+                    "FLOAT",
+                    {"default": 1.0, "min": 0.1, "max": 2.0, "step": 0.1},
+                ),
+                "rate": (
+                    "FLOAT",
+                    {"default": 1.0, "min": 0.1, "max": 10.0, "step": 0.1},
+                ),
+                "volume": (
+                    "FLOAT",
+                    {"default": 1.0, "min": 0.0, "max": 1.0, "step": 0.1},
+                ),
+                "anything": (any_type, {}),
+            },
+        }
+
+    OUTPUT_NODE = True
+    RETURN_TYPES = (any_type,)
+    RETURN_NAMES = ("output",)
+    FUNCTION = "ding_dong"
+    CATEGORY = "😱 PointAgiClub"
+
+    def ding_dong(self, text, pitch, rate, volume, anything):
+
+        PromptServer.instance.send_sync(
+            "pc.play_ding_dong_text",
+            {"text": text, "pitch": pitch, "rate": rate, "volume": volume},
+        )
+
+        return (anything,)
+
+
 NODE_CLASS_MAPPINGS = {
     "pc ding dong": DingDong,
+    "pc ding dong text": DingDongText,
+    "pc time sleep": TimeSleep,
 }
 NODE_DISPLAY_NAME_MAPPINGS = {
     "pc ding dong": "⏰Ding Dong",
+    "pc ding dong text": "⏰Ding Dong Text",
+    "pc time sleep": "⏰Time Sleep",
 }
 WEB_DIRECTORY = "./web"

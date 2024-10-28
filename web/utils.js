@@ -1,5 +1,5 @@
 import { api } from '../../scripts/api.js';
-
+import { francMap } from './addfranc.js';
 export async function request(url, method, data) {
   let formData = undefined;
   if (method === 'POST') {
@@ -72,4 +72,19 @@ export function get_video_files() {
 
 export function set_play_type(play_type) {
   return request('/pc_set_play_type', 'POST', { play_type });
+}
+
+export function play_ding_dong_text(text, pitch, rate, volume) {
+  const utterance = new SpeechSynthesisUtterance(text);
+  utterance.pitch = pitch;
+  utterance.rate = rate;
+  utterance.volume = volume;
+
+  if (window.pcFranc) {
+    console.log('🍞 ~ play_ding_dong_text ~ francMap[window.pcFranc(text)]:', window.pcFranc(text));
+    utterance.lang = francMap[window.pcFranc(text, { minLength: 3 })];
+  }
+  console.log('🍞 ~ play_ding_dong_text ~ utterance:', utterance);
+  window.speechSynthesis.cancel();
+  window.speechSynthesis.speak(utterance);
 }

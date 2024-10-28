@@ -2,7 +2,7 @@ import { app } from '../../../scripts/app.js';
 
 import { api } from '../../scripts/api.js';
 import { $el } from '../../scripts/ui.js';
-import { fetchAndPlayAudioSingle, get_video_files, set_play_type, fetchAndPlayAudio } from './utils.js';
+import { fetchAndPlayAudioSingle, get_video_files, set_play_type, fetchAndPlayAudio, play_ding_dong_text } from './utils.js';
 
 const id_prefix = '⏰Ding_Dong';
 const id_music_prefix = `${id_prefix}.music`;
@@ -115,6 +115,11 @@ app.registerExtension({
     api.addEventListener('pc.play_ding_dong_mui', ({ detail }) => {
       fetchAndPlayAudio(detail.music, detail.volume / 100);
     });
+    api.addEventListener('pc.play_ding_dong_text', ({ detail }) => {
+      console.log('🍞 ~ api.addEventListener ~ detail:', detail);
+      play_ding_dong_text(detail.text, detail.pitch, detail.rate, detail.volume);
+    });
+
     app.ui.settings.addSetting({
       id: `${id_music_prefix}.volume`,
       name: 'Volume',
