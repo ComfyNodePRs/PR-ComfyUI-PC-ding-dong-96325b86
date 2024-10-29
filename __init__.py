@@ -11,6 +11,7 @@ routes = PromptServer.instance.routes
 
 old_task_done = execution.PromptQueue.task_done
 
+
 play_type = "all"
 video_dir = os.path.join(os.path.dirname(os.path.realpath(__file__)), "video")
 
@@ -18,12 +19,14 @@ video_dir = os.path.join(os.path.dirname(os.path.realpath(__file__)), "video")
 def new_task_done(
     self, item_id, history_result, status: Optional["PromptQueue.ExecutionStatus"]
 ):
+
     ret = old_task_done(self, item_id, history_result, status)
-    print(f"play_type: {play_type}, queue length: {len(self.queue)}")
     if play_type == "all" and len(self.queue) > 0:
         return ret
 
-    PromptServer.instance.send_sync("pc.play_ding_dong_audio", {})
+    PromptServer.instance.send_sync("pc.play_ding_dong_audio", {
+        "status": status.status_str
+    })
 
     return ret
 
@@ -47,6 +50,8 @@ def load_video():
 
 
 local_video_files = load_video()
+
+
 
 
 @routes.post("/pc_get_video_files")

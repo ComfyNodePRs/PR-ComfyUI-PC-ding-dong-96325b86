@@ -2,7 +2,7 @@ import { app } from '../../../scripts/app.js';
 
 import { api } from '../../scripts/api.js';
 import { $el } from '../../scripts/ui.js';
-import { fetchAndPlayAudioSingle, get_video_files, set_play_type, fetchAndPlayAudio, play_ding_dong_text } from './utils.js';
+import { fetchAndPlayAudioSingle, get_video_files, set_play_type, fetchAndPlayAudio, play_ding_dong_text, request } from './utils.js';
 
 const id_prefix = '⏰Ding_Dong';
 const id_music_prefix = `${id_prefix}.music`;
@@ -11,6 +11,7 @@ let volume = 100;
 let open = true;
 // all | one
 let play_type = 'all';
+let fail_tip = false;
 const select_menu_name = `${id_music_prefix}.name`;
 const select_menu_name_options = $el('select', {
   onchange: (e) => {
@@ -119,7 +120,10 @@ app.registerExtension({
         console.error('get_video_files error', e);
       }
     });
-    api.addEventListener('pc.play_ding_dong_audio', () => {
+    api.addEventListener('pc.play_ding_dong_audio', ({ detail }) => {
+      if (detail.status === 'error' && !fail_tip) {
+        return;
+      }
       if (selectedAudio && open) {
         fetchAndPlayAudioSingle(selectedAudio, volume / 100);
       }
@@ -128,7 +132,6 @@ app.registerExtension({
       fetchAndPlayAudio(detail.music, detail.volume / 100);
     });
     api.addEventListener('pc.play_ding_dong_text', ({ detail }) => {
-      console.log('🍞 ~ api.addEventListener ~ detail:', detail);
       play_ding_dong_text(detail.text, detail.pitch, detail.rate, detail.volume);
     });
 
@@ -185,6 +188,16 @@ app.registerExtension({
         });
       },
     });
-    console.log(app.ui.settings);
+
+    app.ui.settings.addSetting({
+      id: `${id_music_prefix}.fail_tip`,
+      name: 'fail tip',
+      tooltip: 'workflow fail  tip',
+      type: 'boolean',
+      defaultValue: false,
+      onChange(v) {
+        fail_tip = v;
+      },
+    });
   },
 });
