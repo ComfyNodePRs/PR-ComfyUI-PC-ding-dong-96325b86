@@ -4,11 +4,7 @@
 
 这是一个 ComfyUI 自定义节点，当你的工作流程完成时会发送友好的"叮咚"通知。不用再盯着屏幕等待 - 让 AI 厨房告诉你作品什么时候准备好！👨‍🍳
 
-```HTML
-<video width="320" height="240" controls>
-    <source src="./image/demo.mp4" type="video/mp4">
-</video>
-```
+https://private-user-images.githubusercontent.com/57523724/381594271-c6c4978d-cfbb-4e03-a656-cb91a346ab50.mp4
 
 
 ## 功能特点 🌟

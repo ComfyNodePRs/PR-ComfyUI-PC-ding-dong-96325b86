@@ -6,11 +6,7 @@ Just like when your pizza is ready and the oven goes "Ding! 🍕", this plugin l
 
 A ComfyUI custom node that sends you a friendly "ding-dong" notification when your workflows are fully cooked and ready to serve. No more staring at the screen waiting - let the AI kitchen tell you when dinner's ready! 👨‍🍳
 
-```HTML
-<video width="320" height="240" controls>
-    <source src="./image/demo.mp4" type="video/mp4">
-</video>
-```
+https://private-user-images.githubusercontent.com/57523724/381594271-c6c4978d-cfbb-4e03-a656-cb91a346ab50.mp4
 
 ## Features 🌟
 
