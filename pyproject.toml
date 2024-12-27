@@ -11,4 +11,4 @@ Repository = "https://github.com/lgldlk/ComfyUI-PC-ding-dong"
 [tool.comfy]
 PublisherId = "lgldl"
 DisplayName = "ComfyUI-PC-ding-dong"
-Icon = ""
+Icon = "https://tikolu.net/emojimix/emojis/231a.svg"
