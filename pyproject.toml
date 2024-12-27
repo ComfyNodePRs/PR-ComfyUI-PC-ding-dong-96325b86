@@ -9,6 +9,6 @@ Repository = "https://github.com/lgldlk/ComfyUI-PC-ding-dong"
 #  Used by Comfy Registry https://comfyregistry.org
 
 [tool.comfy]
-PublisherId = ""
+PublisherId = "lgldl"
 DisplayName = "ComfyUI-PC-ding-dong"
 Icon = ""
